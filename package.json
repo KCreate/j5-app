@@ -1,0 +1,20 @@
+{
+  "name": "j5-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "j5-app.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "johnny-five": "^0.9.17"
+  },
+  "repository": {
+	  "type": "git",
+	  "url": "https://github.com/KCreate/j5-app.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leonard Schuetz",
+  "license": "MIT"
+}
