@@ -28,7 +28,7 @@ app.get('/toggleLed', function (req, res) {
 
 	var html="";
 	// indicator
-	html += '<p style="display: block">'+'Current status: ' + (ledON)?"Activated":"Deactivated"+'</p>';
+	html += '<p style="display: block">'+'Current status: ' + (ledON?"Activated":"Deactivated")+'</p>';
 
 	// toggle buttons
 	html += '<a href="?status=0" style="display: block">Turn off</a>';
