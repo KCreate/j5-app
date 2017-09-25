@@ -1,38 +1,35 @@
 // Board control
-var five = require('johnny-five');
-var board = new five.Board();
+var five = require('johnny-five')
+var board = new five.Board()
 
 // Web Server
-var express = require('express');
-var app = express();
+var express = require('express')
+var app = express()
 
-// Board code
-var led;
-var ledON = false;
-board.on("ready", function () {
-	led = new five.Led(13);
-	app.listen(3000);
-	console.log("Server ready at port 3000");
-});
+app.get("/", function (req, res) {
+  res.sendFile(__dirname, "index.html")
+})
+
+app.get("/", express.static("."))
 
 // Web Server config
-app.get('/', function (req, res) {
-	ledON = parseInt(req.query.status);
+let value = 0
+let buzzer
+app.get("/write", function (req, res) {
+	value = req.query.status
+	console.log("writing: " + value)
 
-	console.log("Toggling LED. Current state: " + ledON);
+  piezo.play({
+    song: req.query.status,
+    beats: parseFloat(req.query.beats),
+    tempo: parseInt(req.query.tempo)
+  })
 
-	// toggle led
-	if (ledON) {
-		led.on();
-	} else {
-		led.off();
-	}
+	res.send(".")
+})
 
-	// browser controls
-	var html="<style>*{padding:0;margin:0;box-sizing:border-box;}</style>";
-	html += '<a href="?status=0" style="display: block; height: 45vh; background-color:#e74c3c"></a>';
-	html += '<a href="?status='+!ledON*1+'" style="display: block; height: 10vh; background-color:#9b59b6"></a>';
-	html += '<a href="?status=1" style="display: block; height: 45vh; background-color:#2ecc71"></a>';
-
-	res.send(html);
-});
+board.on("ready", function () {
+	piezo = new five.Piezo(7)
+	app.listen(3000)
+	console.log("Server ready at localhost:3000")
+})

@@ -1,0 +1,62 @@
+<style>
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Hack", monospace;
+  }
+
+  button {
+    display: block;
+    height: 50%;
+    width: 100%;
+    border: 0;
+
+    font-size: 80px;
+    color: #fefbf8;
+
+    transition: font-size 0.08s ease-in-out;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button:hover {
+    font-size: 100px;
+  }
+
+  #onbutton {
+    background-color: #439a55;
+  }
+
+  #offbutton {
+    background-color: #af2317;
+  }
+
+</style>
+
+<button id="onbutton">Turn On</button>
+<button id="offbutton">Turn Off</button>
+
+<script>
+
+const onbutton = document.querySelector("#onbutton")
+const offbutton = document.querySelector("#offbutton")
+
+onbutton.onclick = (event) => { event.preventDefault(); handle(true) }
+offbutton.onclick = (event) => { event.preventDefault(); handle(false) }
+
+let state = 0
+
+function handle(state) {
+  state = state ? 1 : 0
+
+  const request = new XMLHttpRequest()
+  request.open("GET", "/write?status=" + state, true)
+  request.send()
+}
+
+</script>
